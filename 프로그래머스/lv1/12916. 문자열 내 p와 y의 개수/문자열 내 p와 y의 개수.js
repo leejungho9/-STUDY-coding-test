@@ -6,11 +6,11 @@ function solution(s){
     
     // 매개변수의 s를 모두 소문자로 변경
     s  = s.toLowerCase();
-    //반복문을 통해 p와 y의 개수를 세기
+    //반복문을 통해 p와 y의 개수 세기
     for(let i = 0; i < s.length; i++) {
-        if(s[i] === 'p') {
+        if(s[i] === 'p') {  // p라면 p의 값 1 증가
             p++;
-        } else if(s[i] === 'y') {
+        } else if(s[i] === 'y') { // y라면 p의 값 1 증가
             y++;
         }
     }

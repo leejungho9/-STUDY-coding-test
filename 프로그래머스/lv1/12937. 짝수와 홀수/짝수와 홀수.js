@@ -1,7 +1,6 @@
 function solution(num) {
     
-    //결과 값을 반환하는 변수 answer 생성
-    var answer = '';
+    var answer = '';  // 변수 answer 생성
     
     //매개변수 num이 짝수라면 "Even" 반환
     if(num % 2 === 0) {
@@ -12,5 +11,5 @@ function solution(num) {
         answer = "Odd";
     } 
     
-    return answer;
+    return answer; //answer 반환
 }

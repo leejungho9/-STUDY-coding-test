@@ -1,7 +1,6 @@
 function solution(n) {
     
-    //결과 값을 반환하는 변수 answer 생성
-    var answer = 0;
+    var answer = 0; //변수 answer 생성
     
     //1부터 n까지 반복하기
     for(let i = 1; i <= n; i++) {

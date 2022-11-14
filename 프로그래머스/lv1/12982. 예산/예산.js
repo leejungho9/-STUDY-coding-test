@@ -15,13 +15,11 @@ function solution(d, budget) {
     
     //buget가 음수가 된다면 return i 
     if(budget < 0 )  {
-        return answer ;
+        return i;
      } 
-     
-       answer++
        
    }
     
     
-    return answer;
+    return i;
 }

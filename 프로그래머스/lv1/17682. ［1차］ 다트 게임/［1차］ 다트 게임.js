@@ -1,11 +1,11 @@
 function solution(dartResult) {
     let answer = [];
     let arr = [[],[],[]];
-    let str =  dartResult.split(/[0-9]/g).join(",")
-
-    let score = dartResult.replace(/[a-zA-Z#*]/g , ',')
-    score = score.replace(',,',',');
-    score = score.split(",")
+    let str =  dartResult.split(/[0-9]/g).join(",") //숫자를 다 , 로 바꾼 문자열  ===> ,D,S,T
+   
+    let score = dartResult.replace(/[a-zA-Z#*]/g , ',') // 문자,*,# 을 다 , 로 바꾼 문자열  ===> 1,2,,3,
+    score = score.replace(',,',',').split(",");                   // 1,2,,3, 연속된 쉼표를 하나의 쉼표로 바꿔줌 1,2,3,
+    console.log(score)
     const sc = score.filter((s) => {
         return s !== ''
     })

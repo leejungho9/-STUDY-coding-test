@@ -1,8 +1,9 @@
 function solution(dartResult) {
-    let arr = [[],[],[]];   // [[1,S],[2,D*],[3T]]
+    let arr = [[],[],[]];   // [[1,S],[2,D*],[3,T]]
     
-    let str =  dartResult.split(/[0-9]/g).join(",").split(","); //숫자를 다 , 로 바꾼 문자열  ===> ,D,S,T
-    let score = dartResult.replace(/[a-zA-Z#*]/g , ',').split(",") // 문자,*,# 을 다 , 로 바꾸고 쉼표로 자르기 ===> 	[ '1', '2', '3', '', '' ]
+    let str =  dartResult.replace(/[0-9]/g, ',').split(","); //숫자를 다 , 로 바꾸고 다시 쉼표로 구분하기 ===>	,S,D*,T ===> 	[ '', 'S', 'D*', 'T' ] 
+    let score = dartResult.replace(/[a-zA-Z#*]/g , ',').split(",") // 문자,*,# 을 다 , 로 바꾸고 다시 쉼표로 구분하기 ===> 	[ '1', '2', '3', '', '' ]
+
 
     let Bonus =  RemoveEmpty(str) //빈문자열 제거하고 배열로 리턴하는 함수 실행  ===> 	[ 'D', 'S', 'T*' ]
     let NumberScore =  RemoveEmpty(score, 'number') //빈문자열 제거, 숫자타입으로 바꾼 배열을 리턴하는 함수 실행 ===> [ 1, 2, 3 ]
@@ -11,16 +12,16 @@ function solution(dartResult) {
     Bonus.map((el, idx) => { // [[1,S],[2,D*],[3T]] 형태 만들어주기
         arr[idx] = ([NumberScore[idx], el]);
     })
-    
+
     
     // Single(S), Double(D), Triple(T) 영역이 존재하고 각 영역 당첨 시 점수에서  1제곱, 2제곱, 3제곱 (점수1 , 점수2 , 점수3 )으로 계산된다.  
     
     // 점수계산
     
-    // [[1,S],[2,D*],[3T]] 형태 만들어주기
-    let answer = [[],[],[]]; // 각 점수가 들어갈 곳 ===> 예시 [ 1번 기회 점수,  2번 기회 점수, 3번 기회 점수 ]
+    //arr ====>   [[1,S],[2,D*],[3T]]
+    let answer = [[],[],[]]; // 각 점수가 들어갈 변수 ===> 예시 [ 1번 기회 점수,  2번 기회 점수, 3번 기회 점수 ]
     for(let i = 0; i < arr.length; i++) {
-        if(arr[i][1].length === 1) {  //첫번째 기회에 *과 #이 없는 경우 단순 보너스 계산 실행
+        if(arr[i][1].length === 1) {  //모든 기회에 *과 #이 없는 경우,  단순 보너스 계산 실행
             if(arr[i][1] ==='S') {
                 answer[i] = Math.pow(arr[i][0], 1)
             } else if(arr[i][1] ==='D') {
@@ -28,46 +29,38 @@ function solution(dartResult) {
             } else if(arr[i][1] ==='T') {
                 answer[i] = Math.pow(arr[i][0], 3)
             } 
-        }if(arr[i][1][1] === '*') { // *이 있는 경우
-            if(arr[i][1].length !== 1) { //첫 번째 순서에 * 이 있는 경우
-                if(arr[i][1][0] === 'S') {
-                    answer[i-1] *=  2
-                    answer[i] = Math.pow(arr[i][0], 1) * 2
+        //arr ====>   [[1,S*],[2,D],[3T]]
+        } if(arr[i][1][1] === '*') {  //* 이 있는 경우 
+            if( i === 0) { //첫 번째 순서에 * 이 있는 경우
+                if(arr[i][1][0]  === 'S') {
+                     answer[i] = Math.pow(arr[i][0], 1) * 2
+                 }else if(arr[i][1][0]  === 'D') {
+                      answer[i] = Math.pow(arr[i][0], 2) * 2
+                 }else if(arr[i][1][0]  === 'T') {
+                      answer[i] = Math.pow(arr[i][0], 3) * 2
+                 }
+            } else if( i !== 0) { //두, 세 번째순서에 * 이 있는 경우
+                if(arr[i][1][0] === 'S') { 
+                        answer[i-1] *=  2
+                        answer[i] = Math.pow(arr[i][0], 1) * 2
                 } else if(arr[i][1][0] === 'D') {
-                    console.log(answer[i-1]);
-                    answer[i-1] *= 2
-                    answer[i] = Math.pow(arr[i][0], 2) * 2
+                        console.log(answer[i-1]);
+                        answer[i-1] *= 2
+                        answer[i] = Math.pow(arr[i][0], 2) * 2
                 }else if(arr[i][1][0]  === 'T') {
-                    answer[i-1] *= 2
-                    answer[i] = Math.pow(arr[i][0], 3) * 2
-                }
-                // [[1,S],[2,D*],[3,T]]
-            } else if(arr[i][1].length === 1) { //두, 세 번째순서에 * 이 있는 경우
-                if(arr[i][1][0] === 'S') {
-                    answer[i-1] *=  2
-                    answer[i] = Math.pow(arr[i][0], 1) * 2
-                } else if(arr[i][1][0] === 'D') {
-                    console.log(answer[i-1]);
-                    answer[i-1] *= 2
-                    answer[i] = Math.pow(arr[i][0], 2) * 2
-                }else if(arr[i][1][0]  === 'T') {
-                    answer[i-1] *= 2
-                    answer[i] = Math.pow(arr[i][0], 3) * 2
+                        answer[i-1] *= 2
+                        answer[i] = Math.pow(arr[i][0], 3) * 2
                 }
             } 
-        }if(arr[i][1][1] === '#') { //첫번째 기회에 #이 있는 경우
+        } else if(arr[i][1][1] === '#') { //기회에 #이 있는 경우
             if(arr[i][1][0] === 'S') {
                 answer[i] = Math.pow(arr[i][0], 1) * -1
-                console.log( Math.pow(arr[i][0], 1) * -1)
             } else if(arr[i][1][0] === 'D') {
                 answer[i] = Math.pow(arr[i][0], 2) * -1
-                console.log(answer[i])
             } else if(arr[i][1][0]  === 'T') {
                 answer[i] = Math.pow(arr[i][0], 3) * -1
             }       
-         } 
-            
-        
+         }   
     }
 
     console.log(answer) 

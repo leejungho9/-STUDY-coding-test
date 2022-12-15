@@ -1,6 +1,7 @@
 function solution(s) {
- 
-    s = s.split(" ")
-    return `${Math.min(...s)} ${Math.max(...s)}`
- 
+    var answer = "";
+    var arr = [];
+    arr = s.split(" ");
+  
+    return answer = (Math.min.apply(null, arr)) + " " + (Math.max.apply(null ,arr));
 }

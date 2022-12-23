@@ -3,57 +3,33 @@ function solution(brown, yellow) {
 
     //카페의 가로 길이는 세로 길이와 같거나, 세로 길이보다 길다 . 가로 >= 세로
     let size = brown + yellow
-    
-    // 가로 6 세로 6 부터 ..
-    // 가로 7 세로 5
-    // 가로 8 세로 4
-    // 가로 9 세로 3
-    // yellow가 중앙에 있어야 하니까 세로 3줄은 있어야 함 
 
 
+    // size 가 12 니까 size의 약수를 구하자  
 
-    // size 가 12 니까 
-
-    // 가로 * 세로 
+    // 가로 * 세로  
     // 12 * 1 = 12 (세로는 3줄 이상이어야 하니까 안돼)
-    // 6 * 2  = 12   후보1
-    // 4 * 3  = 12   후보2
+    // 6 * 2  = 12 (후보1)
+    // 4 * 3  = 12 (후보2)
+    // 3 * 4  = 12 ( 세로가 더 크니까 안돼)
+    // 2 * 6  = 12 ( 세로가 더 크니까 안돼)
+    // 1 * 12 = 12 ( 세로가 더 크니까 안돼)
 
-    // --- 세로가 더 크니까 안돼 ----
-    // 3 * 4  = 12
-    // 2 * 6 = 12
-    // 1 * 12 = 12
-
-
-    //[[3,4], [2,6]]
-    let half_size =  Math.floor(size / 2)
+    // size가 9니까 
+    // 9 * 1 = 9
+    // 3 * 3 = 9
     
-    let width ;
-    let height ; 
 
-    const arr = []
-
-    for (let i = half_size; i >= 0; i--) {
+    for (let i = size; i >= 0; i--) {
         const size_list = []
-        if (size % i === 0) {
-        
+        if (size % i === 0) { // size에서 i를 나눴을 때 0이 되면 약수가 배열에 넣기
             size_list.push(i, size / i )
-         
-            if(i>= size / i ){
-                arr.push(size_list)
+
+            if((i-2) * (size/i -2)=== yellow) { 
+                return [i, size/i]
             }
         } 
-
     }
-    
-    arr
-
-    arr.forEach(el => {
-        (el[0]-2) * (el[1]-2) === yellow ? answer = el : null;
-    })
-
-    return answer
-
 
 }
 

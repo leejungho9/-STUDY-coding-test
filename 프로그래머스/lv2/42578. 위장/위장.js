@@ -14,14 +14,15 @@ function solution(clothes) {
         }
     }
     
-    //Map에 담긴 값을 꺼내서 미착용(+1) 의 경우까지 더하고 count 랑 곱한 값을 넣어줌
-    //
+    //Map에 담긴 값을 꺼내서 둘 다 미착용(+1) 의 경우까지 더하고 count 랑 곱한 값을 넣어줌
     for(let m of map.values()){
         count *= (m+1);
     }   
-
+    //아예 아무것도 안입었을 시 경우의 수..제외해주기
     return count -1;
-    //headgear 2개일 때  경우의 수[yellow_hat, green_turban ]
+    
+    
+    // headgear 2개일 때  경우의 수[yellow_hat, green_turban ]
     //1. yellow_hat 착용
     //2. green_turban 착용
     //3. 둘 다 미착용
